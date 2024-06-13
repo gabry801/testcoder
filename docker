@@ -32,3 +32,33 @@ To install Docker CE and Docker compose on RHEL 8:
     Install docker-ce with the --nobest option. With this option, the first version of docker-ce with satisfiable dependencies is selected as the "fallback" version.
 
     sudo dnf install --nobest docker-ce-rootless-extras-24.0.7
+
+    Install the latest available containerd.io package manually
+
+    sudo dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+
+    Install the latest docker-ce version:
+
+    sudo dnf install docker-ce
+
+    Start and enable the docker daemon
+
+    sudo systemctl enable --now docker
+
+        Confirm whether the daemon is active by running this command:
+
+        systemctl is-active docker
+
+    Install docker-compose globally.
+        Download the binary file from the project’s GitHub page:
+
+        curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o docker-compose
+
+        After the binary file is downloaded, move it to the /usr/local/bin folder, and then make it executable:
+
+        sudo mv docker-compose /usr/local/bin && sudo chmod +x /usr/local/bin/docker-compose
+        sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose 
+
+For detailed information, see https://linuxconfig.org/how-to-install-docker-in-rhel-8
+
+After this installation, you might encounter a Docker CE container connectivity issue. Complete these steps to resolve this issue.
