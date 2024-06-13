@@ -1,0 +1,34 @@
+Install Docker CE and Docker compose on RHEL 8 or RHEL 9 using dnf commands
+
+Before you begin: You need a valid Red Hat subscription and account credentials to perform these actions. For detailed prerequisites, refer to Prerequisites and requirements.
+
+To install Docker CE and Docker compose on RHEL 8:
+
+    Add a subscription on a RHEL 8 system. To do that, complete the following steps:
+        Register the system:
+
+        sudo subscription-manager register
+
+        This command prompts you to enter your Red Hat account credentials. After successful registration, the system is associated with your Red Hat account.
+        Refresh:
+
+        sudo subscription-manager refresh
+
+        This command manually refreshes the local system's subscription information.
+        Attach a subscription:
+
+        sudo subscription-manager attach --auto
+
+        This command automatically attaches available subscriptions to your system.
+    For more details on adding a subscription on a RHEL 8 system, see https://access.redhat.com/solutions/253273
+    Add the external repository by running the following command.
+
+    sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+
+        Verify whether the repository has been enabled. To do that, run the following command that returns detailed information about all the enabled repositories.
+
+        sudo dnf repolist -v
+
+    Install docker-ce with the --nobest option. With this option, the first version of docker-ce with satisfiable dependencies is selected as the "fallback" version.
+
+    sudo dnf install --nobest docker-ce-rootless-extras-24.0.7
