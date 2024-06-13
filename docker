@@ -1,22 +1,10 @@
-Installing Terraform on CentOS 8
+Coder running on VM is working almost without any issues.
+The installation runs with a single command:
+curl -L https://coder.com/install.sh | sh
 
-CentOS 8 does not include the Terraform package in its repository. Therefore, we need to add the HashiCorp repository using the yum-utils package and then install Terraform using the yum package manager.
-Adding the HashiCorp Repository
+There is only to install:
+- DockerCE
+- Terraform (to avoid warnings while starting Coder)
+- Run: coder server and check the "exposed" url
 
-To add the HashiCorp repository to your system, run the following command:
-
-sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-
-This command configures your system to access the HashiCorp repository.
-Verifying the Repository
-
-To verify if the HashiCorp repository has been added successfully, run the following command:
-
-sudo dnf repolist
-
-You should see the HashiCorp repository listed in the output.
-Installing Terraform
-
-Now that the repository is set up, we can proceed with the installation. Run the following command to install Terraform:
-
-sudo yum install terraform -y
+Create a template with Docker and create workspace.
