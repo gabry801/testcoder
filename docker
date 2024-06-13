@@ -1,64 +1,22 @@
-Install Docker CE and Docker compose on RHEL 8 or RHEL 9 using dnf commands
+Installing Terraform on CentOS 8
 
-Before you begin: You need a valid Red Hat subscription and account credentials to perform these actions. For detailed prerequisites, refer to Prerequisites and requirements.
+CentOS 8 does not include the Terraform package in its repository. Therefore, we need to add the HashiCorp repository using the yum-utils package and then install Terraform using the yum package manager.
+Adding the HashiCorp Repository
 
-To install Docker CE and Docker compose on RHEL 8:
+To add the HashiCorp repository to your system, run the following command:
 
-    Add a subscription on a RHEL 8 system. To do that, complete the following steps:
-        Register the system:
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
 
-        sudo subscription-manager register
+This command configures your system to access the HashiCorp repository.
+Verifying the Repository
 
-        This command prompts you to enter your Red Hat account credentials. After successful registration, the system is associated with your Red Hat account.
-        Refresh:
+To verify if the HashiCorp repository has been added successfully, run the following command:
 
-        sudo subscription-manager refresh
+sudo dnf repolist
 
-        This command manually refreshes the local system's subscription information.
-        Attach a subscription:
+You should see the HashiCorp repository listed in the output.
+Installing Terraform
 
-        sudo subscription-manager attach --auto
+Now that the repository is set up, we can proceed with the installation. Run the following command to install Terraform:
 
-        This command automatically attaches available subscriptions to your system.
-    For more details on adding a subscription on a RHEL 8 system, see https://access.redhat.com/solutions/253273
-    Add the external repository by running the following command.
-
-    sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
-
-        Verify whether the repository has been enabled. To do that, run the following command that returns detailed information about all the enabled repositories.
-
-        sudo dnf repolist -v
-
-    Install docker-ce with the --nobest option. With this option, the first version of docker-ce with satisfiable dependencies is selected as the "fallback" version.
-
-    sudo dnf install --nobest docker-ce-rootless-extras-24.0.7
-
-    Install the latest available containerd.io package manually
-
-    sudo dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
-
-    Install the latest docker-ce version:
-
-    sudo dnf install docker-ce
-
-    Start and enable the docker daemon
-
-    sudo systemctl enable --now docker
-
-        Confirm whether the daemon is active by running this command:
-
-        systemctl is-active docker
-
-    Install docker-compose globally.
-        Download the binary file from the project’s GitHub page:
-
-        curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o docker-compose
-
-        After the binary file is downloaded, move it to the /usr/local/bin folder, and then make it executable:
-
-        sudo mv docker-compose /usr/local/bin && sudo chmod +x /usr/local/bin/docker-compose
-        sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose 
-
-For detailed information, see https://linuxconfig.org/how-to-install-docker-in-rhel-8
-
-After this installation, you might encounter a Docker CE container connectivity issue. Complete these steps to resolve this issue.
+sudo yum install terraform -y
